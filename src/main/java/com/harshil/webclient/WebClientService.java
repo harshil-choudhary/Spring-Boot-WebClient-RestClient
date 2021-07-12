@@ -45,11 +45,7 @@ public class WebClientService {
     public MultiValueMap<String, HttpEntity<?>> fromFile(MultipartFile[] files) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         Arrays.stream(files).forEach(file -> {
-            try {
-                builder.part("files", new ByteArrayResource(file.getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            builder.part("files", file.getResource());
         });
         return builder.build();
     }

@@ -26,19 +26,25 @@ public class RestClientService {
 
         MultiValueMap<String, Object> body
                 = new LinkedMultiValueMap<>();
-        Arrays.stream(files).forEach(file -> {
+        /*Arrays.stream(files).forEach(file -> {
             try {
                 body.add("files", new ByteArrayResource(file.getBytes()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });*/
+
+        Arrays.stream(files).forEach(file -> {
+            body.add("files", file.getResource());
         });
+
+        System.out.println(body);
 
         String serverUrl = "http://localhost:8080/reviews/v1/upload-media";
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity
                 = new HttpEntity<>(body, headers);
-
+        System.out.println(requestEntity);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<BulkReviewMediaDTO> response = restTemplate
                 .postForEntity(serverUrl, requestEntity, BulkReviewMediaDTO.class);
