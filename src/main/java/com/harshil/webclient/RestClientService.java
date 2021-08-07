@@ -1,6 +1,5 @@
 package com.harshil.webclient;
 
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -11,7 +10,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 @Service
@@ -26,13 +24,7 @@ public class RestClientService {
 
         MultiValueMap<String, Object> body
                 = new LinkedMultiValueMap<>();
-        /*Arrays.stream(files).forEach(file -> {
-            try {
-                body.add("files", new ByteArrayResource(file.getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });*/
+
 
         Arrays.stream(files).forEach(file -> {
             body.add("files", file.getResource());
